@@ -105,12 +105,17 @@
 
     .v-pfp-container img {
       width: 100%; height: 100%; object-fit: cover;
+      /* Zoom in effect applied here */
+      transform: scale(1.3); 
       border-radius: 4px; position: relative; z-index: 2;
       filter: grayscale(20%) contrast(110%);
-      transition: filter 0.3s;
+      transition: filter 0.3s, transform 0.3s;
     }
 
-    .v-pfp-container:hover img { filter: grayscale(0%) contrast(100%); }
+    .v-pfp-container:hover img { 
+      filter: grayscale(0%) contrast(100%); 
+      transform: scale(1.35); /* Slight extra zoom on hover */
+    }
 
     /* Tech corners */
     .v-pfp-corner {

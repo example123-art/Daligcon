@@ -105,8 +105,8 @@
 
     .v-pfp-container img {
       width: 100%; height: 100%; object-fit: cover;
-      /* Zoom in effect applied here */
-      transform: scale(1.3); 
+      /* ZOOM CHANGED TO 1.1 TO SHOW MORE OF THE HOODIE */
+      transform: scale(1.1); 
       border-radius: 4px; position: relative; z-index: 2;
       filter: grayscale(20%) contrast(110%);
       transition: filter 0.3s, transform 0.3s;
@@ -114,7 +114,7 @@
 
     .v-pfp-container:hover img { 
       filter: grayscale(0%) contrast(100%); 
-      transform: scale(1.35); /* Slight extra zoom on hover */
+      transform: scale(1.15); /* Slight extra zoom on hover */
     }
 
     /* Tech corners */
@@ -440,9 +440,11 @@
             <a href="nc4.jpg" target="_blank"><img class="cert-preview" src="nc4.jpg" alt="Northeastern 4" /></a>
             <div class="cert-actions"><a href="nc4.jpg" target="_blank">View</a><a href="nc4.jpg" download="Northeastern-4.jpg" class="download">Save</a></div>
           </article>
+          
+          <!-- NETACAD (1) -->
           <article class="cert-card">
             <h3>NetAcad</h3>
-            <a href="net.jpg" target="_blank"><img class="cert-preview" src="net.jpg" alt="Northeastern 4" /></a>
+            <a href="net.jpg" target="_blank"><img class="cert-preview" src="net.jpg" alt="NetAcad" /></a>
             <div class="cert-actions"><a href="net.jpg" target="_blank">View</a><a href="net.jpg" download="netacad.jpg" class="download">Save</a></div>
           </article>
 

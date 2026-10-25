@@ -24,7 +24,7 @@
     body {
       background-color: var(--bg);
       color: var(--text);
-      font-family: 'Consolas', 'Courier New', monospace; /* Code Font */
+      font-family: 'Consolas', 'Courier New', monospace;
       line-height: 1.6;
       overflow-x: hidden;
     }
@@ -77,34 +77,50 @@
     .btn.secondary { background: transparent; color: #fff; }
     .btn.secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); }
 
-    /* ================= CYBER HEXAGON PFP ================= */
-    .hex-container {
-      position: relative; width: 320px; height: 360px; margin: 0 auto;
-      display: flex; justify-content: center; align-items: center;
+    /* ================= VERTICAL RECTANGLE PFP ================= */
+    .v-pfp-container {
+      position: relative; width: 300px; height: 400px; margin: 0 auto;
+      background: #111;
+      border: 2px solid var(--border); border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,123,0,0.05);
+      transition: all 0.4s ease;
+      overflow: hidden;
     }
 
-    .hex-bg {
-      position: absolute; width: 100%; height: 100%;
-      background: var(--accent); 
-      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-      animation: pulseHex 3s infinite alternate;
-      z-index: 1;
+    .v-pfp-container:hover {
+      transform: translateY(-10px);
+      border-color: var(--accent);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 30px var(--accent-dim);
     }
 
-    @keyframes pulseHex {
-      0% { opacity: 0.4; transform: scale(0.95); filter: drop-shadow(0 0 10px var(--accent)); }
-      100% { opacity: 0.8; transform: scale(1.02); filter: drop-shadow(0 0 20px var(--accent)); }
+    /* Tech grid lines inside the container */
+    .v-pfp-container::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(rgba(255,123,0,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,123,0,0.05) 1px, transparent 1px);
+      background-size: 20px 20px; z-index: 1; pointer-events: none;
     }
 
-    .hex-inner {
-      position: relative; width: 290px; height: 330px;
-      background: var(--bg); 
-      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-      z-index: 2; overflow: hidden; display: flex; justify-content: center; align-items: center;
+    .v-pfp-container img {
+      width: 100%; height: 100%; object-fit: cover;
+      border-radius: 4px; position: relative; z-index: 2;
+      filter: grayscale(20%) contrast(110%);
+      transition: filter 0.3s;
     }
 
-    .hex-inner img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: transform 0.5s; }
-    .hex-inner:hover img { transform: scale(1.1); }
+    .v-pfp-container:hover img { filter: grayscale(0%) contrast(100%); }
+
+    /* Tech corners */
+    .v-pfp-corner {
+      position: absolute; width: 15px; height: 15px;
+      border: 2px solid var(--accent); z-index: 3;
+    }
+    .v-c1 { top: 5px; left: 5px; border-right: none; border-bottom: none; }
+    .v-c2 { top: 5px; right: 5px; border-left: none; border-bottom: none; }
+    .v-c3 { bottom: 5px; left: 5px; border-right: none; border-top: none; }
+    .v-c4 { bottom: 5px; right: 5px; border-left: none; border-top: none; }
 
     /* ================= CODE BLOCK CARDS ================= */
     section { padding: 90px 0; }
@@ -120,7 +136,6 @@
       position: relative; transition: all 0.3s; overflow: hidden;
     }
 
-    /* The Code Tab at the top of the card */
     .tech-card::before {
       content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
       background: var(--border); transition: background 0.3s;
@@ -188,7 +203,7 @@
       .about-grid, .skills-grid, .contact-grid { grid-template-columns: 1fr; }
       .navlinks { display: none; }
       .resume-band { flex-direction: column; text-align: center; }
-      .hex-container { transform: scale(0.85); }
+      .v-pfp-container { width: 260px; height: 340px; }
     }
   </style>
 </head>
@@ -228,13 +243,14 @@
       </div>
       
       <div class="hidden-el">
-        <!-- HEXAGON PFP -->
-        <div class="hex-container">
-          <div class="hex-bg"></div>
-          <div class="hex-inner">
-            <!-- ENSURE PHOTO IS NAMED john.png -->
-            <img src="john.png" alt="John Renn F. Daligcon" />
-          </div>
+        <!-- VERTICAL RECTANGLE PFP -->
+        <div class="v-pfp-container">
+          <div class="v-pfp-corner v-c1"></div>
+          <div class="v-pfp-corner v-c2"></div>
+          <div class="v-pfp-corner v-c3"></div>
+          <div class="v-pfp-corner v-c4"></div>
+          <!-- EXACT FILENAME FROM SCREENSHOT -->
+          <img src="pfp.png" alt="John Renn F. Daligcon" />
         </div>
       </div>
     </div>
@@ -340,28 +356,84 @@
 
         <div class="cert-track" id="cert-track">
           
+          <!-- TESDA (5) -->
           <article class="cert-card">
-            <h3>Certificate Title 1</h3>
-            <a href="cert1.jpg" target="_blank"><img class="cert-preview" src="cert1.jpg" alt="Certificate 1" /></a>
-            <div class="cert-actions"><a href="cert1.jpg" target="_blank">View</a><a href="cert1.jpg" download="Certificate-1.jpg" class="download">Save</a></div>
+            <h3>TESDA</h3>
+            <a href="1.jpg" target="_blank"><img class="cert-preview" src="1.jpg" alt="TESDA 1" /></a>
+            <div class="cert-actions"><a href="1.jpg" target="_blank">View</a><a href="1.jpg" download="TESDA-1.jpg" class="download">Save</a></div>
+          </article>
+          <article class="cert-card">
+            <h3>TESDA</h3>
+            <a href="2.jpg" target="_blank"><img class="cert-preview" src="2.jpg" alt="TESDA 2" /></a>
+            <div class="cert-actions"><a href="2.jpg" target="_blank">View</a><a href="2.jpg" download="TESDA-2.jpg" class="download">Save</a></div>
+          </article>
+          <article class="cert-card">
+            <h3>TESDA</h3>
+            <a href="3.jpg" target="_blank"><img class="cert-preview" src="3.jpg" alt="TESDA 3" /></a>
+            <div class="cert-actions"><a href="3.jpg" target="_blank">View</a><a href="3.jpg" download="TESDA-3.jpg" class="download">Save</a></div>
+          </article>
+          <article class="cert-card">
+            <h3>TESDA</h3>
+            <a href="4.jpg" target="_blank"><img class="cert-preview" src="4.jpg" alt="TESDA 4" /></a>
+            <div class="cert-actions"><a href="4.jpg" target="_blank">View</a><a href="4.jpg" download="TESDA-4.jpg" class="download">Save</a></div>
+          </article>
+          <article class="cert-card">
+            <h3>TESDA</h3>
+            <a href="5.jpg" target="_blank"><img class="cert-preview" src="5.jpg" alt="TESDA 5" /></a>
+            <div class="cert-actions"><a href="5.jpg" target="_blank">View</a><a href="5.jpg" download="TESDA-5.jpg" class="download">Save</a></div>
           </article>
 
+          <!-- ADAL PILIPINAS (1) -->
           <article class="cert-card">
-            <h3>Certificate Title 2</h3>
-            <a href="cert2.jpg" target="_blank"><img class="cert-preview" src="cert2.jpg" alt="Certificate 2" /></a>
-            <div class="cert-actions"><a href="cert2.jpg" target="_blank">View</a><a href="cert2.jpg" download="Certificate-2.jpg" class="download">Save</a></div>
+            <h3>ADAL Pilipinas</h3>
+            <a href="adal pilipinas.jpg" target="_blank"><img class="cert-preview" src="adal pilipinas.jpg" alt="ADAL Pilipinas" /></a>
+            <div class="cert-actions"><a href="adal pilipinas.jpg" target="_blank">View</a><a href="adal pilipinas.jpg" download="ADAL-Pilipinas.jpg" class="download">Save</a></div>
           </article>
 
+          <!-- FREECODECAMP (1) -->
           <article class="cert-card">
-            <h3>Certificate Title 3</h3>
-            <a href="cert3.jpg" target="_blank"><img class="cert-preview" src="cert3.jpg" alt="Certificate 3" /></a>
-            <div class="cert-actions"><a href="cert3.jpg" target="_blank">View</a><a href="cert3.jpg" download="Certificate-3.jpg" class="download">Save</a></div>
+            <h3>freeCodeCamp</h3>
+            <a href="camp.jpg" target="_blank"><img class="cert-preview" src="camp.jpg" alt="freeCodeCamp" /></a>
+            <div class="cert-actions"><a href="camp.jpg" target="_blank">View</a><a href="camp.jpg" download="freeCodeCamp.jpg" class="download">Save</a></div>
           </article>
 
+          <!-- DICT (3) -->
           <article class="cert-card">
-            <h3>Certificate Title 4</h3>
-            <a href="cert4.jpg" target="_blank"><img class="cert-preview" src="cert4.jpg" alt="Certificate 4" /></a>
-            <div class="cert-actions"><a href="cert4.jpg" target="_blank">View</a><a href="cert4.jpg" download="Certificate-4.jpg" class="download">Save</a></div>
+            <h3>DICT</h3>
+            <a href="dict1.jpg" target="_blank"><img class="cert-preview" src="dict1.jpg" alt="DICT 1" /></a>
+            <div class="cert-actions"><a href="dict1.jpg" target="_blank">View</a><a href="dict1.jpg" download="DICT-1.jpg" class="download">Save</a></div>
+          </article>
+          <article class="cert-card">
+            <h3>DICT</h3>
+            <a href="dict2.jpg" target="_blank"><img class="cert-preview" src="dict2.jpg" alt="DICT 2" /></a>
+            <div class="cert-actions"><a href="dict2.jpg" target="_blank">View</a><a href="dict2.jpg" download="DICT-2.jpg" class="download">Save</a></div>
+          </article>
+          <article class="cert-card">
+            <h3>DICT</h3>
+            <a href="dict3.jpg" target="_blank"><img class="cert-preview" src="dict3.jpg" alt="DICT 3" /></a>
+            <div class="cert-actions"><a href="dict3.jpg" target="_blank">View</a><a href="dict3.jpg" download="DICT-3.jpg" class="download">Save</a></div>
+          </article>
+
+          <!-- NORTHEASTERN COLLEGE (4) -->
+          <article class="cert-card">
+            <h3>Northeastern College</h3>
+            <a href="nc1.jpg" target="_blank"><img class="cert-preview" src="nc1.jpg" alt="Northeastern 1" /></a>
+            <div class="cert-actions"><a href="nc1.jpg" target="_blank">View</a><a href="nc1.jpg" download="Northeastern-1.jpg" class="download">Save</a></div>
+          </article>
+          <article class="cert-card">
+            <h3>Northeastern College</h3>
+            <a href="nc2.jpg" target="_blank"><img class="cert-preview" src="nc2.jpg" alt="Northeastern 2" /></a>
+            <div class="cert-actions"><a href="nc2.jpg" target="_blank">View</a><a href="nc2.jpg" download="Northeastern-2.jpg" class="download">Save</a></div>
+          </article>
+          <article class="cert-card">
+            <h3>Northeastern College</h3>
+            <a href="nc3.jpg" target="_blank"><img class="cert-preview" src="nc3.jpg" alt="Northeastern 3" /></a>
+            <div class="cert-actions"><a href="nc3.jpg" target="_blank">View</a><a href="nc3.jpg" download="Northeastern-3.jpg" class="download">Save</a></div>
+          </article>
+          <article class="cert-card">
+            <h3>Northeastern College</h3>
+            <a href="nc4.jpg" target="_blank"><img class="cert-preview" src="nc4.jpg" alt="Northeastern 4" /></a>
+            <div class="cert-actions"><a href="nc4.jpg" target="_blank">View</a><a href="nc4.jpg" download="Northeastern-4.jpg" class="download">Save</a></div>
           </article>
 
         </div>
@@ -376,7 +448,8 @@
             <h2>Download my resume</h2>
             <p>My resume is available for viewing and download.</p>
           </div>
-          <a class="btn primary" href="resume.pdf" download="John-Renn-Daligcon-Resume.pdf">Download Resume</a>
+          <!-- EXACT FILENAME: daligcon.pdf -->
+          <a class="btn primary" href="daligcon.pdf" download="John-Renn-Daligcon-Resume.pdf">Download Resume</a>
         </div>
       </div>
     </section>
@@ -447,18 +520,18 @@
     class CodeSymbol {
       constructor() {
         this.reset();
-        this.y = Math.random() * canvas.height; // Start randomly on screen initially
+        this.y = Math.random() * canvas.height; 
       }
       reset() {
         this.x = Math.random() * canvas.width;
-        this.y = canvas.height + 50; // Start below screen
+        this.y = canvas.height + 50; 
         this.size = Math.random() * 20 + 10;
         this.speed = Math.random() * 1 + 0.5;
         this.opacity = Math.random() * 0.5 + 0.1;
         this.char = symbols[Math.floor(Math.random() * symbols.length)];
       }
       update() {
-        this.y -= this.speed; // Float upwards
+        this.y -= this.speed; 
         if (this.y < -50) {
           this.reset();
         }
